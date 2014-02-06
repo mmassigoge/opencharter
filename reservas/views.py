@@ -20,13 +20,17 @@ class HomePageView(TemplateView):
             return HttpResponseRedirect('/reservas/reservas_pasajero')
         except ObjectDoesNotExist:
             messages.error(self.request, 'email o clave incorrecta')
-            return HttpResponseRedirect('/reservas/reservas')
+            return HttpResponseRedirect('/reservas')
 
 class ReservasView(TemplateView):
     template_name = 'reservas/reservas.html'
 
     def get_context_data(self, **kwargs):
         context = super(ReservasView, self).get_context_data(**kwargs)
-        pasajero = Pasajero.objects.get(id=self.request.session['pasajero_id'])
-        context['reservas_list'] = pasajero.reserva_set.all()
+        if('pasajero_id' in self.request.session):
+            pasajero = Pasajero.objects.get(id=self.request.session['pasajero_id'])
+            context['reservas_list'] = pasajero.reserva_set.all()
+        else:
+            messages.error(self.request, 'pasajero no identificado')
+            context['reservas_list'] = []
         return context
