@@ -1,0 +1,27 @@
+{% extends 'reservas/base.html' %}
+
+{% block title %}OpenCharter{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+		<div class="span12">
+			<form class="form-horizontal" action='' method="POST">
+				{% csrf_token %}
+			  <fieldset>
+			    <div id="legend">
+			      <legend class="">Mis Reservas Activas</legend>
+			    </div>
+				<ul class="list-group">
+				    {% for reserva in reservas_list %}
+				    	<li class="list-group-item">{{ reserva }}</li>
+				    {% endfor %}
+			    </ul>
+			  </fieldset>
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

@@ -29,4 +29,20 @@ class Viaje(models.Model):
     
     def __unicode__(self):
         return u'%s %s %s %s' % (self.fecha_hora, self.vehiculo, self.chofer, self.ocupados)
-        
+
+class Pasajero(models.Model):
+    dni = models.PositiveIntegerField(unique=True)
+    nombre = models.CharField(max_length=100)
+    email = models.EmailField(max_length=254,unique=True)
+    clave = models.CharField(max_length=50)
+    fecha_nacimiento = models.DateField(null=True)
+
+    def __unicode__(self):
+        return u'%s' % (self.email)
+
+class Reserva(models.Model):
+    pasajero = models.ForeignKey(Pasajero)
+    viaje = models.ForeignKey(Viaje)
+    
+    def __unicode__(self):
+        return u'usuario: %s - fecha: %s - hora: %s' % (self.pasajero, self.viaje.fecha_hora.strftime('%Y-%m-%d'), self.viaje.fecha_hora.strftime('%H:%M'))

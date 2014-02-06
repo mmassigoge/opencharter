@@ -1,0 +1,40 @@
+{% extends 'reservas/base.html' %}
+
+{% block title %}OpenCharter{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+		<div class="span12">
+			<form class="form-horizontal" action='' method="POST">
+				{% csrf_token %}
+			  <fieldset>
+			    <div id="legend">
+			      <legend class="">Ingresa tu email y clave</legend>
+			    </div>
+			    <div class="control-group">
+			      <label class="control-label"  for="email">email</label>
+			      <div class="controls">
+			        <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
+			      </div>
+			    </div>
+			    <div class="control-group">
+			      <label class="control-label" for="clave">Clave</label>
+			      <div class="controls">
+			        <input type="password" id="clave" name="clave" placeholder="" class="input-xlarge">
+			      </div>
+			    </div>
+			    <div class="control-group">
+			      <!-- Button -->
+			      <div class="controls">
+			        <button class="btn btn-success">Ver mis reservas activas!</button>
+			      </div>
+			    </div>
+			  </fieldset>
+			</form>
+		</div>
+	</div>
+</div>
+    
+{% endblock %}
