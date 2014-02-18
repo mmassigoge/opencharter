@@ -13,7 +13,8 @@ class HomePageView(TemplateView):
         return context
     
     def post(self, request, *args, **kwargs):
-        del request.session['pasajero_id']
+        if('pasajero_id' in request.session):
+            del request.session['pasajero_id']
         email = request.POST.get('email')
         clave = request.POST.get('clave')
         try:
@@ -21,7 +22,7 @@ class HomePageView(TemplateView):
             request.session['pasajero_id'] = pasajero.id
             return HttpResponseRedirect('/reservas/reservas_pasajero')
         except ObjectDoesNotExist:
-            messages.error(self.request, 'email o clave incorrecta')
+            messages.error(request, 'email o clave incorrecta')
             return HttpResponseRedirect('/reservas')
 
 class ReservasView(TemplateView):
